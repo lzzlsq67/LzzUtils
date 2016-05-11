@@ -18,7 +18,9 @@ public class CreateBeanUtil {
 
 	/** 测试 */
 	public static void main( String[] args ) {
+		// @formatter:off
 		String field = "field";
+		// @formatter:on
 		String type = "String";
 		String remarks = "字段名";
 		BeanData data = new BeanData( field, type, remarks );
@@ -43,7 +45,7 @@ public class CreateBeanUtil {
 	/** 打印数据 */
 	public static void printData( String field, String type, String remarks ) {
 		if (remarks != null) println( "/**" + remarks + "*/" );
-		println( "private " + addSpace( type ) + field + ";" );
+		println( "private " + addSpace( type ) + StringUtils_camel.underLine2Camel( field ) + ";" );
 		println( empty );
 	}
 
@@ -57,7 +59,7 @@ public class CreateBeanUtil {
 		if (remarks == null) remarks = field;
 		println( "/** get " + remarks + "*/" );
 		println( "public " + addSpace( type ) + "get" + StringUtils_camel.underLine2Camel( StringUtils_camel.UNDERLINE + field ) + "( ){" );
-		println( "    return " + field + ";" );
+		println( "    return " + StringUtils_camel.underLine2Camel( field ) + ";" );
 		println( "}" );
 		println( empty );
 	}
@@ -82,8 +84,8 @@ public class CreateBeanUtil {
 	public static void printSet( String field, String type, String remarks ) {
 		if (remarks == null) remarks = field;
 		println( "/** set " + remarks + "*/" );
-		println( "public " + "void " + "set" + StringUtils_camel.underLine2Camel( StringUtils_camel.UNDERLINE + field ) + "(" + addSpace( type ) + field + " ){" );
-		println( "    this." + field + " = " + field + ";" );
+		println( "public " + "void " + "set" + StringUtils_camel.underLine2Camel( StringUtils_camel.UNDERLINE + field ) + "(" + addSpace( type ) + StringUtils_camel.underLine2Camel( field ) + " ){" );
+		println( "    this." + StringUtils_camel.underLine2Camel( field ) + " = " + StringUtils_camel.underLine2Camel( field ) + ";" );
 		println( "}" );
 		println( empty );
 	}
@@ -116,7 +118,7 @@ public class CreateBeanUtil {
 	/** 打印ToString */
 	private static String getToString( String fieldName, String type, String remarks ) {
 		if (remarks == null) remarks = fieldName;
-		return ("\"" + remarks + "=\"" + fieldName).toString();
+		return ("\"" + remarks + "=\"+" + StringUtils_camel.underLine2Camel( fieldName )).toString();
 	}
 
 	/** 打印 数据集合 */
